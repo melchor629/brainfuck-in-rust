@@ -1,0 +1,12 @@
+[package]
+name = "bf"
+version = "0.1.0"
+edition = "2021"
+authors = ["melchor629"]
+description = "Brainfuck language interpreter and transpiler, for fun."
+license = "MIT"
+
+[dependencies]
+
+[features]
+with-debug = []
