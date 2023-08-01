@@ -18,6 +18,9 @@ It also contains a parser (tokenizer) which converts known tokens into `CodeToke
 rest of tokens. Because the language is so simple, it does not contain an AST. But probably with
 one, loops/ifs would be easier to optimize in the interpreter.
 
+There is another... Another feature that allows this library to run in `no_std` environments. The
+only dependencies are with `core` and `alloc`.
+
 Have fun :)
 
   [bf]: https://en.wikipedia.org/wiki/Brainfuck

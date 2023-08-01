@@ -9,4 +9,6 @@ license = "MIT"
 [dependencies]
 
 [features]
+default = []
 with-debug = []
+no-std = []

@@ -4,7 +4,10 @@
 //! about the original place of the token in the source code. Useful for
 //! interpreting or transpiling the language.
 
-use std::fmt::Display;
+use core::fmt::Display;
+
+#[cfg(feature = "no-std")]
+use alloc::{vec, vec::Vec};
 
 const INCREMENT_TOKEN: u8 = '+' as u8;
 const DECREMENT_TOKEN: u8 = '-' as u8;
@@ -47,11 +50,11 @@ pub enum CodeToken {
 #[derive(Debug, Copy, Clone)]
 pub struct CodeDebugToken {
     /// Token
-    pub(crate) token: CodeToken,
-    // Line where the token is located in source
-    pub(crate) line: usize,
-    // Column where the token is located in source
-    pub(crate) column: usize,
+    pub token: CodeToken,
+    /// Line where the token is located in source
+    pub line: usize,
+    /// Column where the token is located in source
+    pub column: usize,
 }
 
 /// Given the source code of a Brainfuck program, returns the list of tokens
@@ -113,7 +116,7 @@ impl From<&CodeToken> for u8 {
 }
 
 impl Display for CodeToken {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+    fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
         let code: u8 = self.into();
         write!(f, "{}", code as char)
     }

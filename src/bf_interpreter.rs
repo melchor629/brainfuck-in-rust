@@ -1,7 +1,11 @@
-use std::io::Result;
+#[cfg(feature = "no-std")]
+use alloc::vec::Vec;
 
 use crate::{
-    code_memory::CodeMemory, data_memory::DataMemory, io_system::IOSystem, tokenizer::CodeToken,
+    code_memory::CodeMemory,
+    data_memory::DataMemory,
+    io_system::{IOResult, IOSystem},
+    tokenizer::CodeToken,
 };
 
 /// Interpreter for the Brainfuck language.
@@ -34,7 +38,7 @@ impl<IO: IOSystem> BrainfuckInterpreter<IO> {
     }
 
     /// Runs the given interpreter with the given code memory and data memory.
-    pub fn run(&mut self, mut code: CodeMemory, mut memory: DataMemory) -> Result<()> {
+    pub fn run(&mut self, mut code: CodeMemory, mut memory: DataMemory) -> IOResult<()> {
         let mut stack = Vec::<usize>::with_capacity(16);
 
         while let Some(t) = code.read() {

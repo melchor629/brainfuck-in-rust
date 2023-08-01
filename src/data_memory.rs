@@ -1,3 +1,6 @@
+#[cfg(feature = "no-std")]
+use alloc::{vec, vec::Vec};
+
 /// Represents the memory for data in the Brainfuck state machine.
 ///
 /// The memory is created with all data filled with 0, and with a specific

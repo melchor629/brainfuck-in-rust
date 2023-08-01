@@ -1,4 +1,5 @@
 #![deny(missing_docs)]
+#![cfg_attr(feature = "no-std", no_std)]
 
 //! Brainfuck interpreter and transpiler.
 //!
@@ -34,7 +35,11 @@
 //! let tokens = tokenize(code.as_bytes());
 //! ```
 
+#[cfg(feature = "no-std")]
+extern crate alloc;
+
 mod bf_interpreter;
+#[cfg(not(feature = "no-std"))]
 pub mod bf_transpiler;
 mod code_memory;
 mod data_memory;
@@ -42,6 +47,10 @@ mod io_system;
 pub mod tokenizer;
 
 pub use bf_interpreter::BrainfuckInterpreter;
+#[cfg(not(feature = "no-std"))]
 pub use bf_transpiler::BrainfuckTranspiler;
 pub use code_memory::CodeMemory;
+#[cfg(feature = "no-std")]
+pub use io_system::IOSystem;
+#[cfg(not(feature = "no-std"))]
 pub use io_system::{IOSystem, StandardIOSystem};

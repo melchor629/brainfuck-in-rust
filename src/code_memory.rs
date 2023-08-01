@@ -1,8 +1,12 @@
+#[cfg(not(feature = "no-std"))]
 use std::{
     fs::File,
     io::{Read, Result},
     path::Path,
 };
+
+#[cfg(feature = "no-std")]
+use alloc::vec::Vec;
 
 use crate::tokenizer::{tokenize, CodeDebugToken, CodeToken};
 
@@ -36,11 +40,13 @@ impl CodeMemory {
     }
 
     /// Creates the memory from the source code.
+    #[cfg(not(feature = "no-std"))]
     pub fn from_string(code: &String) -> Self {
         Self::from_bytes(code.as_bytes())
     }
 
     /// Creates the memory from the source code located in a file.
+    #[cfg(not(feature = "no-std"))]
     pub fn from_file(path: &Path) -> Result<Self> {
         let mut file = File::open(&path)?;
         let mut string = String::new();
@@ -96,6 +102,7 @@ impl From<&str> for CodeMemory {
     }
 }
 
+#[cfg(not(feature = "no-std"))]
 impl From<&String> for CodeMemory {
     fn from(value: &String) -> Self {
         Self::from_string(&value)
